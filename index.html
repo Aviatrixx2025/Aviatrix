@@ -172,25 +172,28 @@
   </div>
 
   <script>
-    function togglePassword() {
-      const input = document.getElementById("passwordInput");
-      input.type = input.type === "password" ? "text" : "password";
-    }
+  function togglePassword() {
+    const input = document.getElementById("passwordInput");
+    input.type = input.type === "password" ? "text" : "password";
+  }
 
-    function handleEnter(event) {
-      if (event.key === "Enter") {
-        checkPassword();
-      }
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      checkPassword();
     }
+  }
 
-    function checkPassword() {
-      const input = document.getElementById("passwordInput").value;
-      if (input === "Aviatrix2.0-2025") {
-        window.location.href = "avi2.0.html";
-      } else {
-        document.getElementById("loginError").innerText = "Mot de passe incorrect.";
-      }
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === "Aviatrix2.0-2025") {
+      // ✅ Enregistrement de l'état connecté
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "avi2.0.html";
+    } else {
+      document.getElementById("loginError").innerText = "Mot de passe incorrect.";
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
