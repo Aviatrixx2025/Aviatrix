@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategie Violette - Mode Dynamique</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(ellipse at bottom, #0f172a, #000000);
+      color: #fff;
+    }
+    header {
+      background: linear-gradient(135deg, #14b8a6, #22d3ee);
+      padding: 15px 10px 5px;
+      text-align: center;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 8px;
+    }
+    .social-icons a img {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s ease, filter 0.3s;
+    }
+    .social-icons a:hover img {
+      transform: scale(1.2);
+      filter: brightness(1.3);
+    }
+    .clock {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      color: #ffffff;
+      font-weight: 600;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+    .container {
+      max-width: 100%;
+      width: 90%;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 1;
+    }
+    input {
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 15px;
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+    .time-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .time-inputs input {
+      flex: 1;
+    }
+    button {
+      background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      box-shadow: 0 0 18px #0ea5e9;
+      transition: all 0.3s ease-in-out;
+    }
+    button:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 25px #38bdf8;
+    }
+    .result {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 25px;
+      font-size: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f0f9ff;
+    }
+    .indicator {
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 18px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .green { background: #14532d; color: #d1fae5; }
+    .yellow { background: #78350f; color: #fef9c3; }
+    .red { background: #7f1d1d; color: #fee2e2; }
+    .aviatrix {
+      text-align: center;
+      font-size: 1.5rem;
+      color: red;
+      font-weight: 800;
+      margin-top: 40px;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+    .background-animation::before,
+    .background-animation::after {
+      content: "";
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #0ea5e9 0%, transparent 80%);
+      border-radius: 50%;
+      animation: float 12s infinite ease-in-out alternate;
+      opacity: 0.15;
+      z-index: 0;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+    .background-animation::before {
+      top: 10%;
+      left: 5%;
+    }
+    .background-animation::after {
+      bottom: 10%;
+      right: 5%;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="background-animation">
+  <header>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/profile.php?id=100068494160483" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+      </a>
+      <a href="https://www.instagram.com/hendrinirina/profilecard/?igsh=dG56cW96ODM4YWM1" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+      </a>
+      <a href="https://wa.me/261387753496" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+      </a>
+    </div>
+    <div class="clock" id="clock"></div>
+  </header>
+  <div class="container">
+    <input id="mult" type="number" step="0.01" placeholder="Ex: 1.12">
+    <div class="time-inputs">
+      <input id="h" placeholder="HH" maxlength="2">
+      <input id="m" placeholder="MM" maxlength="2">
+      <input id="s" placeholder="SS" maxlength="2">
+    </div>
+    <button onclick="calculer()">Lancer l'analyse</button>
+    <div class="result" id="result"></div>
+    <div class="aviatrix" id="aviatrix">A V I A T R I X</div>
+  </div>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const h = now.getHours().toString().padStart(2, '0');
+      const m = now.getMinutes().toString().padStart(2, '0');
+      const s = now.getSeconds().toString().padStart(2, '0');
+      document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function calculer() {
+      const result = document.getElementById("result");
+      const aviatrix = document.getElementById("aviatrix");
+      const mult = parseFloat(document.getElementById("mult").value);
+      const h = document.getElementById("h").value.padStart(2, "0");
+      const m = document.getElementById("m").value.padStart(2, "0");
+      const s = document.getElementById("s").value.padStart(2, "0");
+      if (isNaN(mult) || mult >= 2 || mult < 1.00) {
+        alert("Entrez un multiplicateur entre 1.00 et 2.00");
+        return;
+      }
+      aviatrix.style.display = "none";
+      const baseTime = new Date();
+      baseTime.setHours(h);
+      baseTime.setMinutes(m);
+      baseTime.setSeconds(s);
+      const bestTime = new Date(baseTime.getTime() + 3 * 60000);
+      const format = (d) =>
+        `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}`;
+      const prob = ((2 - mult) * 45).toFixed(1);
+      const predictionX = ((2 - mult) * 2 + 1.5).toFixed(2);
+      let level = "";
+      let indicatorClass = "";
+      if (prob >= 60) {
+        level = "FEU VERT - Mise forte possible";
+        indicatorClass = "green";
+      } else if (prob >= 35) {
+        level = "OPPORTUNITE RAISONNABLE - Mise prudente";
+        indicatorClass = "yellow";
+      } else {
+        level = "TROP RISQUE - Eviter de miser";
+        indicatorClass = "red";
+      }
+      if (prob < 35) {
+        result.innerHTML = `<p>Multiplicateur: <strong>${mult.toFixed(2)}x</strong></p><p>Probabilite trop faible (${prob}%). Attendre meilleur signal.</p><div class="indicator ${indicatorClass}">${level}</div>`;
+        aviatrix.style.display = "block";
+      } else {
+        result.innerHTML = `
+          <p>Multiplicateur observe: <strong>${mult.toFixed(2)}x</strong></p>
+          <p>Heure du crash observe: <strong>${h}:${m}:${s}</strong></p>
+          <p>Heure conseillee pour miser: <strong>${format(bestTime)}</strong></p>
+          <p>Probabilite estimee: <strong>${prob}%</strong></p>
+          <p>Multiplicateur recommande: <strong>minimum x${predictionX}</strong></p>
+          <div class="indicator ${indicatorClass}">${level}</div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
