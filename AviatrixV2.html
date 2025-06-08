@@ -15,7 +15,7 @@
       color: #fff;
     }
     header {
-      background: black red;
+      background: Black Red;
       padding: 15px 10px 5px;
       text-align: center;
       border-radius: 0 0 20px 20px;
@@ -150,6 +150,35 @@
       50% { transform: translateY(-15px); }
       100% { transform: translateY(0); }
     }
+.instructions {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  margin: 25px auto 0;
+  padding: 20px;
+  width: 90%;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.instructions h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+.instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.instructions ul li {
+  margin-bottom: 10px;
+  padding-left: 8px;
+}
+.instructions .disclaimer {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #fca5a5;
+  font-weight: 500;
+}
   </style>
 </head>
 <body class="background-animation">
@@ -167,8 +196,17 @@
     </div>
     <div class="clock" id="clock"></div>
   </header>
+<div class="instructions">
+  <h2>馃搶 Mode d'utilisation</h2>
+  <ul>
+    <li>&#x1F39F; Entrez le multiplicateur le plus bas des 10 derniers tours (ex : 1.00 脿 1.99)</li>
+    <li>鈴憋笍 Indiquez l'heure exacte (HH:MM:SS) 脿 laquelle ce multiplicateur a 茅t茅 observ茅</li>
+    <li>馃攣 Attendez un nouveau minimum pour relancer une analyse</li>
+  </ul>
+  <p class="disclaimer">鈿狅笍 Les pr茅dictions sont bas茅es sur des calculs statistiques et ne garantissent pas a 100%, donc reste realiste envers les predictions. Utilisez-les comme outil d鈥檃ide, pas comme certitude. Evitez de tout miser</p>
+</div>
   <div class="container">
-    <input id="mult" type="number" step="0.01" placeholder="Ex: 1.12">
+   <input id="mult" type="number" step="0.01" placeholder="Ex: 1.12" style="width: 100%; max-width: 100%; box-sizing: border-box;">
     <div class="time-inputs">
       <input id="h" placeholder="HH" maxlength="2">
       <input id="m" placeholder="MM" maxlength="2">
