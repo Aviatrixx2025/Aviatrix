@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ketrik'i AVIATRIX</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -248,7 +248,7 @@
     }
 
     .instructions-list li::before {
-      content: "✨";
+      content: "📣";
       position: absolute;
       left: 0;
       color: #ff8c00;
@@ -271,6 +271,14 @@
       color: #ffccd5;
       font-weight: 500;
     }
+	
+	.disclaimer em {
+	  color: #00ffa3d4;
+	}
+	
+	.disclaimer strong {
+	  color: red;
+	}
 
     /* Contenu principal */
     .main-content {
@@ -394,7 +402,7 @@
     /* Résultats */
     #resultContainer {
       margin-top: 30px;
-      background: linear-gradient(135deg, rgba(45, 27, 105, 0.9) 0%, rgba(26, 26, 46, 0.9) 100%);
+      background: linear-gradient(135deg, rgb(74 69 91 / 90%) 0%, rgb(16 16 71 / 90%) 100%);
       border-radius: 18px;
       padding: 25px;
       border: 2px solid #ff8c00;
@@ -428,7 +436,8 @@
       background: rgba(155, 0, 255, 0.15);
       padding: 15px;
       border-radius: 12px;
-      border-left: 4px solid #ff8c00;
+      border-left: 4px solid #1fa55b;
+	  border-right: 4px solid #1fa55b;
     }
 
     .result-label {
@@ -445,7 +454,7 @@
     }
 
     .result-value strong {
-      color: #ff8c00;
+      color: #5bff79;
     }
 
     .indicator {
@@ -654,10 +663,10 @@
         </div>
         <div class="clock-instructions">
           <div class="clock-container">
-            <span class="clock-label">TEMPS:</span>
+            <span class="clock-label">LERA</span>
             <div class="clock" id="clock">00:00:00</div>
           </div>
-          <button class="instructions-btn" onclick="openInstructions()">
+          <button class="instructions-btn" title="Fomba fampiasa azy !" onclick="openInstructions()">
             <i class="fas fa-book-open"></i> 
           </button>
         </div>
@@ -677,11 +686,13 @@
       <ul class="instructions-list">
         <li>1) Ampidiro eo amin'ilay "case" voalohany ny <strong>"multiplicateur (côte)"</strong> kely indrindra ao anatin'ny <strong>"dix (10) derniers tours"</strong>. (ohatra : 1.00 à 1.30)</li>
         <li>2) Ampidiro tsy misy diso eo amin'ilay "case" faharoa ny <strong>ORA, MINITRA, SEGONDRA (HH:MM:SS)</strong> an'ilay "multiplicateur (côte)" kely indrindra itanao.</li>
-        <li>3) Raha sendra tara dia miandry <strong>"côte" kely indrindra</strong> mivoka indray.</li>
-        <li>4) Ora filalaovana : <strong>15h atramin'ny 17h - 21h atramin'ny 23h</strong> (Tena misy dikany be ity ora filalaovana ity).</li>
+        <li>3) Raha sendra tara an'ilay prédiction nomen'i AVIATRIX dia miandry <strong>"côte" kely indrindra"</strong> mivoka indray any amin'ny <em>"Historique des côtes"</em> ao amin'ny AVIATOR.</li>
+		<li>4) Midira <strong>20 na 15 secondes</strong> à l'avance rehefa manome prédiction i AVIATRIX</li>
+		<li>5) Ora filalaovana : <strong>15h atramin'ny 17h - 21h atramin'ny 23h</strong> (Tena misy dikany be ity ora filalaovana ity).</li>
       </ul>
       <div class="disclaimer">
-        <strong>⚠️ IMPORTANT:</strong> Ny "prédiction" avoka eto dia tsy misy "100% exacte" ka fadio ny manao "mise" vola be na ny volanao rehetra mihitsy, ataovy antonony mba misy ilalaovana tsara.
+        <strong>⚠️ IMPORTANT:</strong> Ny "prédiction" avoka eto dia tsy misy <em>"100% exacte"</em>  izay efa notsindrina mafy tany amin'ny "condition général" 
+		izay novakinao sy noekenao ka fadio ny manao "mise" vola be na ny volanao rehetra mihitsy, ataovy antonony mba misy ilalaovana tsara. <em>Tadidio fa kilalao ny AVIATOR fa tsy anton'asa na vadin'asa !</em>
       </div>
     </div>
   </div>
@@ -692,7 +703,7 @@
     <div class="calculator-card">
       <div class="input-group">
         <label class="input-label">MULTIPLICATEUR (CÔTE)</label>
-        <input id="mult" type="number" step="0.01" min="1.00" max="2.00" placeholder="Exemple: 1.12" class="mult-input">
+        <input id="mult" type="number" step="0.01" min="1.00" max="2.00" placeholder="Ohatra: 1.12" class="mult-input">
       </div>
 
       <div class="input-group">
@@ -704,16 +715,16 @@
         </div>
       </div>
 
-      <button class="analyze-btn" onclick="calculer()">
-        <span>🚀 LANCER L'ANALYSE</span>
+      <button class="analyze-btn" title="Bonne chance !" onclick="calculer()">
+        <span>🚀 Alefao ary</span>
       </button>
 
       <!-- Résultats -->
       <div class="result-container" id="resultContainer">
-        <div class="result-header">RÉSULTATS DE L'ANALYSE</div>
+        <div class="result-header">IREO VALINY</div>
         <div id="resultContent">
           <p style="text-align: center; color: #d4b3ff; padding: 40px 20px;">
-            Entrez les données ci-dessus et cliquez sur "Lancer l'analyse" pour obtenir les résultats.
+            Fenoy aloha ireo ambony ireo "jereo ny fomba fampiasa an'i AVIATRIX etsy ambony etsy raha mbola tsy mahay (ilay sarina boky kely io)" dia izay vao alefa mba hipotran'ny "prédiction".
           </p>
         </div>
       </div>
@@ -723,6 +734,27 @@
     <div class="aviatrix-footer" id="aviatrix">
       A V I A T R I X
     </div>
+	<footer style="text-align: center; margin: 30px 0;">
+  <a href="index.html" style="
+    display: inline-block;
+    background: linear-gradient(135deg, #9b00ff 0%, #ff0080 50%, #ff8c00 100%);
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid #ff8c00;
+    box-shadow: 0 5px 20px rgba(155, 0, 255, 0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+  " 
+  onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(255, 0, 128, 0.6)'; this.style.background='linear-gradient(135deg, #ff8c00 0%, #ff0080 50%, #9b00ff 100%)'"
+  onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 20px rgba(155, 0, 255, 0.4)'; this.style.background='linear-gradient(135deg, #9b00ff 0%, #ff0080 50%, #ff8c00 100%)'">
+    Iala amin'izay aloa fa efa nahazo
+  </a>
+</footer>
   </div>
 
   <script>
