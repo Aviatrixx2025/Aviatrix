@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmation de paiement - AVIATRIX</title>
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      color: #d0d0d0;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Arrière-plan avec les animations existantes - intensité réduite */
+    .lightning {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+      animation: lightningFlash 25s infinite;
+    }
+
+    @keyframes lightningFlash {
+      0%, 97%, 100% { opacity: 0; }
+      98% { opacity: 0.5; }
+      99% { opacity: 0.1; }
+    }
+
+    .led {
+      position: fixed;
+      width: 1.5px;
+      height: 1.5px;
+      background: #00ccaa;
+      box-shadow: 0 0 4px #00ccaa;
+      animation: moveLed 12s linear infinite;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    @keyframes moveLed {
+      0% { transform: translateY(-10px); opacity: 0.5; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: rgba(15, 20, 30, 0.9);
+      border: 1px solid rgba(0, 204, 170, 0.4);
+      border-radius: 10px;
+      color: #00ccaa;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 204, 170, 0.2);
+    }
+
+    .back-button:hover {
+      background: rgba(0, 204, 170, 0.15);
+      transform: translateX(-3px);
+      box-shadow: 0 0 15px rgba(0, 204, 170, 0.3);
+    }
+
+    /* Conteneur principal */
+    .main-container {
+      max-width: 800px;
+      margin: 80px auto 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Titre principal */
+    .main-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .main-title h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, #cc0000, #ff6666, #cc0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 10px rgba(204, 0, 0, 0.4);
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .main-title p {
+      color: #aaa;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.5;
+    }
+
+    /* Carte de contenu */
+    .content-card {
+      background: rgba(15, 20, 30, 0.95);
+      border-radius: 20px;
+      padding: clamp(30px, 4vw, 40px);
+      border: 1px solid rgba(0, 204, 170, 0.4);
+      box-shadow: 
+        0 0 30px rgba(0, 204, 170, 0.2),
+        inset 0 0 15px rgba(0, 204, 170, 0.08);
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        #00ccaa,
+        #00aa88, 
+        #0066cc, 
+        #00ccaa);
+      border-radius: 22px;
+      z-index: -1;
+      animation: borderGlow 6s linear infinite;
+      background-size: 400% 400%;
+      opacity: 0.8;
+    }
+
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      color: #efd15fb8;
+      font-size: clamp(1.3rem, 3vw, 1.5rem);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(0, 204, 170, 0.3);
+    }
+
+    .section h4 {
+      color: #66d9cc;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      margin: 20px 0 10px 0;
+    }
+
+    /* Listes */
+    .instructions-list {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .instructions-list li {
+      margin-bottom: 12px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 25px;
+    }
+
+    .info-list li {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ddd;
+    }
+
+    .info-list li i {
+      color: #f75f96c4;
+      min-width: 20px;
+    }
+
+    /* Code Mvola */
+    .mvola-code {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 204, 170, 0.5);
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .mvola-code strong {
+      color: #00ccaa;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .mvola-code em {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    /* Texte général */
+    p {
+      color: #bbb;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    /* Formulaire de confirmation */
+    .form-title {
+      text-align: center;
+      color: #00ccaa;
+      font-size: clamp(1.5rem, 3vw, 1.8rem);
+      margin: 40px 0 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .confirmation-form {
+      background: rgba(15, 20, 30, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 204, 170, 0.3);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .input-label {
+      display: block;
+      color: #00ccaa;
+      margin-bottom: 10px;
+      font-weight: 500;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      letter-spacing: 1px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 204, 170, 0.5);
+      border-radius: 10px;
+      color: #eee;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #00ccaa;
+      box-shadow: 0 0 15px rgba(0, 204, 170, 0.3);
+    }
+
+    .input-field::placeholder {
+      color: #888;
+    }
+
+    /* Conteneur pour la sélection de date/heure */
+    .datetime-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .datetime-display {
+      flex: 1;
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 204, 170, 0.5);
+      border-radius: 10px;
+      color: #eee;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .datetime-display:hover {
+      background: rgba(0, 0, 0, 0.6);
+      border-color: #00ccaa;
+    }
+
+    .datetime-btn {
+      padding: 15px 20px;
+      background: rgba(0, 204, 170, 0.2);
+      border: 2px solid rgba(0, 204, 170, 0.5);
+      border-radius: 10px;
+      color: #00ccaa;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .datetime-btn:hover {
+      background: rgba(0, 204, 170, 0.3);
+      border-color: #00ccaa;
+    }
+
+    /* Modal pour la date/heure */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background: rgba(15, 20, 30, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 204, 170, 0.4);
+      box-shadow: 0 0 50px rgba(0, 204, 170, 0.3);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .modal-title {
+      color: #00ccaa;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .datetime-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .datetime-selector input[type="date"],
+    .datetime-selector input[type="time"] {
+      padding: 12px 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 204, 170, 0.5);
+      border-radius: 8px;
+      color: #eee;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-ok {
+      background: #00ccaa;
+      color: #000;
+    }
+
+    .modal-ok:hover {
+      background: #00aa88;
+    }
+
+    .modal-cancel {
+      background: rgba(204, 68, 68, 0.1);
+      color: #cc4444;
+      border: 1px solid rgba(204, 68, 68, 0.3);
+    }
+
+    .modal-cancel:hover {
+      background: rgba(204, 68, 68, 0.2);
+    }
+
+    /* Boutons */
+    .buttons-container {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .button {
+      flex: 1;
+      padding: 18px;
+      border: none;
+      border-radius: 10px;
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .button:hover::before {
+      left: 100%;
+    }
+
+    .confirm-btn {
+      background: linear-gradient(90deg, #00ccaa, #00aa88);
+      color: #000;
+    }
+
+    .confirm-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 204, 170, 0.3);
+    }
+
+    .cancel-btn {
+      background: linear-gradient(90deg, #cc4444, #aa3333);
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(204, 68, 68, 0.3);
+    }
+
+    /* Message d'état */
+    .status-message {
+      text-align: center;
+      margin-top: 20px;
+      min-height: 24px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      color: #ddd;
+    }
+
+    .success {
+      color: #00ccaa;
+      text-shadow: 0 0 5px rgba(0, 204, 170, 0.3);
+    }
+
+    .error {
+      color: #ff6666;
+      text-shadow: 0 0 5px rgba(255, 102, 102, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .buttons-container {
+        flex-direction: column;
+      }
+      
+      .content-card {
+        padding: 25px;
+      }
+      
+      .confirmation-form {
+        padding: 20px;
+      }
+      
+      header {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+      }
+      
+      .main-container {
+        margin-top: 20px;
+      }
+      
+      .datetime-container {
+        flex-direction: column;
+      }
+    }
+	
+	 .mvola-link {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: rgba(0, 204, 170, 0.1);
+    border: 1px solid rgba(0, 204, 170, 0.3);
+    display: inline-block;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.mvola-link:hover {
+    background: rgba(0, 204, 170, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 204, 170, 0.3);
+}
+
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      
+      .content-card {
+        padding: 20px;
+      }
+      
+      .mvola-code {
+        padding: 15px;
+      }
+      
+      .input-field {
+        padding: 12px 15px;
+      }
+      
+      .button {
+        padding: 15px;
+      }
+      
+      .modal-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .main-title h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.3rem;
+      }
+	  
+      .button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animations de fond -->
+  <div class="lightning"></div>
+
+  <!-- Header -->
+  <header>
+    <a href="Aviatrix.html" class="back-button" title="Donc AVIATRIX ne vous intéresse pas ?">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+  </header>
+
+  <!-- Modal pour date/heure -->
+  <div class="modal-overlay" id="datetimeModal">
+    <div class="modal-content">
+      <h3 class="modal-title">Sélectionner la date et l'heure du paiement</h3>
+      <div class="datetime-selector">
+        <input type="date" id="modalDate" max="">
+        <input type="time" id="modalTime">
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-cancel" onclick="closeModal()">Annuler</button>
+        <button class="modal-btn modal-ok" onclick="setDateTime()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenu principal -->
+  <div class="main-container">
+    
+    <!-- Titre -->
+    <div class="main-title">
+      <h1>CONFIRMATION DE PAIEMENT</h1>
+    </div>
+
+    <!-- Instructions -->
+    <div class="content-card">
+      <div class="section">
+        <h2 class="section-title">Je veux avoir les prédictions d'AVIATRIX tout de suite !</h2>
+        <p> Afin de bénéficier de la totalité des avantages de l'application, veuillez verser <strong>10.000 Ariary</strong> via MVola. Une fois l'achat effectué, confirmez votre paiement en nous envoyant <strong>votre numéro et la référence de la transaction</strong> par 
+		<strong>SMS ou par message privé (MP)</strong>. Dès réception, nous vous enverrons votre mot de passe.</p>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">Instructions de paiement:</h3>
+        <h4>Ouvrez l'application Mvola ou Orange Africa sur votre téléphone</h4>
+        <ol class="instructions-list">
+          <li>Sélectionnez "Envoyer de l'argent"</li>
+          <li>Entrez le numéro: 038 77 534 96 (MVola) / 032 66 671 13 (Orange)</li>
+          <li>Entrez le montant: 10.000 Ariary</li>
+          <li>Ajoutez votre nom dans la référence du paiement</li>
+          <li>Confirmez le paiement</li>
+        </ol>
+        
+        <div class="mvola-code">
+			<a href="tel:*111*1*2*0387753496*10000*1%23" class="mvola-link">
+				<i class="fas fa-phone-alt"></i> #111*1*2*0387753496*10000*1#
+			</a>
+          <em><br/>(frais de retrait y compris - tapez ce code directement dans votre téléphone si vous utilisez YAS comme opérateur)</em>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">Informations de paiement</h3>
+        <ul class="info-list">
+          <li>
+            <i class="fas fa-user"></i>
+            <span><strong>Nom du compte:</strong> Hendrinirina Michel (si MVola) - Hanitriniaina (si Orange Money)</span>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <span><strong>Numéro MVola et Orange:</strong> 038 77 534 96 / 032 66 671 13</span>
+          </li>
+          <li>
+            <i class="fas fa-money-bill-wave"></i>
+            <span><strong>Montant à payer:</strong> 10.000 Ariary</span>
+          </li>
+        </ul>
+        <p>Une fois le paiement effectué, envoyez les informations de paiement (votre numéro et référence) par SMS vers 038 77 534 96 ou cliquez sur <a href="https://www.facebook.com/profile.php?id=100068494160483" target="_blank" title="Facebook" style="color: #ff66cc; font-weight: bold; text-decoration: none;">Mp</a></p>
+      </div>
+    </div>
+	
+    <!-- Footer -->
+    <div class="footer">
+      <p>© 2026 AVIATRIX - Tous droits réservés</p>
+      <p>Version 2.4.0 | Support: 038 77 534 96</p>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let selectedDateTime = null;
+
+    // Créer les LED animées
+    function createLEDs() {
+      const container = document.body;
+      for (let i = 0; i < 20; i++) {
+        let led = document.createElement('div');
+        led.className = 'led';
+        led.style.left = Math.random() * 100 + 'vw';
+        led.style.animationDuration = (8 + Math.random() * 10) + 's';
+        led.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(led);
+      }
+    }
+
+    // Formater automatiquement le numéro de téléphone au format Madagascar
+    document.getElementById('userPhone').addEventListener('input', function(e) {
+    let value = e.target.value;
+    
+    // Garder seulement les chiffres
+    value = value.replace(/\D/g, '');
+    
+    // Limiter à 10 chiffres maximum
+    value = value.substring(0, 10);
+    
+    // Appliquer le format: 034 12 345 67 (3-2-3-2)
+    if (value.length > 0) {
+        let formatted = '';
+        
+        // Les 3 premiers chiffres (opérateur)
+        formatted = value.substring(0, 3);
+        if (value.length > 3) {
+            formatted += ' ' + value.substring(3, 5);    // 2 chiffres
+        }
+        if (value.length > 5) {
+            formatted += ' ' + value.substring(5, 8);    // 3 chiffres
+        }
+        if (value.length > 8) {
+            formatted += ' ' + value.substring(8, 10);   // 2 chiffres
+        }
+        
+        value = formatted;
+    }
+    
+    e.target.value = value;
+});
+
+    // Ouvrir le modal pour sélectionner la date/heure
+    function openModal() {
+      const modal = document.getElementById('datetimeModal');
+      const now = new Date();
+      const today = now.toISOString().split('T')[0];
+      
+      // Définir la date maximale à aujourd'hui
+      document.getElementById('modalDate').max = today;
+      
+      // Si une date est déjà sélectionnée, la pré-remplir
+      if (selectedDateTime) {
+        const selectedDate = selectedDateTime.toISOString().split('T')[0];
+        const selectedTime = selectedDateTime.toTimeString().substring(0, 5);
+        
+        document.getElementById('modalDate').value = selectedDate;
+        document.getElementById('modalTime').value = selectedTime;
+      } else {
+        // Sinon, pré-remplir avec la date/heure actuelle
+        document.getElementById('modalDate').value = today;
+        document.getElementById('modalTime').value = now.toTimeString().substring(0, 5);
+      }
+      
+      modal.style.display = 'flex';
+    }
+
+    // Fermer le modal
+    function closeModal() {
+      document.getElementById('datetimeModal').style.display = 'none';
+    }
+
+    // Définir la date/heure sélectionnée
+    function setDateTime() {
+      const dateInput = document.getElementById('modalDate').value;
+      const timeInput = document.getElementById('modalTime').value;
+      
+      if (!dateInput || !timeInput) {
+        alert('Veuillez sélectionner une date et une heure');
+        return;
+      }
+      
+      selectedDateTime = new Date(dateInput + 'T' + timeInput);
+      const now = new Date();
+      
+      // Vérifier que la date n'est pas dans le futur
+      if (selectedDateTime > now) {
+        alert('La date et l\'heure ne peuvent pas être dans le futur. Veuillez sélectionner une date/heure passée.');
+        return;
+      }
+      
+      // Formater l'affichage
+      const options = { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      
+      const formattedDate = selectedDateTime.toLocaleDateString('fr-FR', options);
+      document.getElementById('datetimeDisplay').textContent = formattedDate;
+      
+      closeModal();
+    }
+
+    // Définir l'heure actuelle par défaut au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      createLEDs();
+      
+      // Définir la date/heure actuelle par défaut
+      const now = new Date();
+      selectedDateTime = new Date(now.getTime() - 5 * 60000); // 5 minutes dans le passé pour être sûr
+      
+      const options = { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      
+      const formattedDate = selectedDateTime.toLocaleDateString('fr-FR', options);
+      document.getElementById('datetimeDisplay').textContent = formattedDate;
+    });
+
+    // Fonction de confirmation de paiement
+    function confirmPayment() {
+      const phone = document.getElementById('userPhone').value.trim();
+      const ref = document.getElementById('paymentRef').value.trim();
+      const statusElement = document.getElementById('paymentStatus');
+      
+      // Validation du numéro de téléphone
+      if (!phone) {
+        statusElement.className = 'status-message error';
+        statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Veuillez entrer votre numéro Mvola';
+        return;
+      }
+      
+      // Vérifier le format du numéro (exactement 10 chiffres)
+		const phoneDigits = phone.replace(/\D/g, '');
+		if (phoneDigits.length !== 10) {
+		statusElement.className = 'status-message error';
+		statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Numéro invalide. Format: 034 12 345 67';
+		return;
+}
+      
+      if (!ref) {
+        statusElement.className = 'status-message error';
+        statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Veuillez entrer la référence du paiement';
+        return;
+      }
+      
+      if (!selectedDateTime) {
+        statusElement.className = 'status-message error';
+        statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Veuillez sélectionner la date et l\'heure du paiement';
+        return;
+      }
+      
+      // Vérifier que la date n'est pas dans le futur
+      const now = new Date();
+      if (selectedDateTime > now) {
+        statusElement.className = 'status-message error';
+        statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> La date/heure ne peut pas être dans le futur';
+        return;
+      }
+      
+      // Animation de chargement
+      const confirmBtn = document.querySelector('.confirm-btn');
+      const originalHtml = confirmBtn.innerHTML;
+      confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+      confirmBtn.disabled = true;
+      
+      statusElement.className = 'status-message';
+      statusElement.textContent = '';
+      
+      // Simulation d'envoi
+      setTimeout(() => {
+        statusElement.className = 'status-message success';
+        statusElement.innerHTML = '<i class="fas fa-check"></i> Confirmation envoyée ! Nous traiterons votre demande sous 5 minutes.';
+        
+        confirmBtn.innerHTML = '<i class="fas fa-check"></i> Confirmé';
+        confirmBtn.style.background = 'linear-gradient(90deg, #00aa88, #008866)';
+        
+        // Réinitialiser le formulaire après succès
+        setTimeout(() => {
+          document.getElementById('userPhone').value = '';
+          document.getElementById('paymentRef').value = '';
+          
+          // Réinitialiser la date/heure
+          const now = new Date();
+          selectedDateTime = new Date(now.getTime() - 5 * 60000);
+          
+          const options = { 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          };
+          
+          const formattedDate = selectedDateTime.toLocaleDateString('fr-FR', options);
+          document.getElementById('datetimeDisplay').textContent = formattedDate;
+          
+          confirmBtn.innerHTML = originalHtml;
+          confirmBtn.disabled = false;
+          confirmBtn.style.background = 'linear-gradient(90deg, #00ccaa, #00aa88)';
+        }, 3000);
+      }, 2000);
+    }
+
+    // Fonction d'annulation
+    function cancelPayment() {
+      if (confirm('Êtes-vous sûr de vouloir annuler ? Toutes les données saisies seront perdues.')) {
+        document.getElementById('userPhone').value = '';
+        document.getElementById('paymentRef').value = '';
+        
+        // Réinitialiser la date/heure
+        const now = new Date();
+        selectedDateTime = new Date(now.getTime() - 5 * 60000);
+        
+        const options = { 
+          year: 'numeric', 
+          month: '2-digit', 
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit'
+        };
+        
+        const formattedDate = selectedDateTime.toLocaleDateString('fr-FR', options);
+        document.getElementById('datetimeDisplay').textContent = formattedDate;
+        
+        const statusElement = document.getElementById('paymentStatus');
+        statusElement.className = 'status-message';
+        statusElement.textContent = 'Formulaire réinitialisé';
+        
+        setTimeout(() => {
+          statusElement.textContent = '';
+        }, 2000);
+      }
+    }
+
+    // Permettre la soumission avec Entrée
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const focused = document.activeElement;
+        if (focused.tagName === 'INPUT') {
+          confirmPayment();
+        }
+      }
+    });
+
+    // Fermer le modal avec Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Fermer le modal en cliquant à l'extérieur
+    document.getElementById('datetimeModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
