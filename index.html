@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Connexion - AVIATRIX</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Welcome - AVIATRIX</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
-      height: 100%;
       width: 100%;
+      height: 100%;
       overflow: hidden;
+      touch-action: manipulation;
     }
 
     body {
+      background: #0f0f0f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'Orbitron', sans-serif;
-      background-color: #0f0f0f;
-      color: white;
       position: fixed;
       top: 0;
       left: 0;
@@ -30,604 +33,494 @@
       bottom: 0;
     }
 
-    /* Arrière-plan avec les animations existantes */
-    .lightning {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .welcome-container {
+      position: relative;
       width: 100%;
       height: 100%;
-      background: white;
-      opacity: 0;
-      z-index: 1;
-      pointer-events: none;
-      animation: lightningFlash 15s infinite;
-    }
-
-    @keyframes lightningFlash {
-      0%, 95%, 100% { opacity: 0; }
-      96% { opacity: 0.8; }
-      97% { opacity: 0.2; }
-      98% { opacity: 0.9; }
-      99% { opacity: 0; }
-    }
-
-    .led {
-      position: fixed;
-      width: 2px;
-      height: 2px;
-      background: #00ffcc;
-      box-shadow: 0 0 6px #00ffcc;
-      animation: moveLed 10s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes moveLed {
-      0% { transform: translateY(-10px); opacity: 1; }
-      100% { transform: translateY(110vh); opacity: 0; }
-    }
-
-    /* Conteneur principal - occupe tout l'écran */
-    .main-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       padding: 20px;
       overflow: hidden;
     }
 
-    /* Carte de connexion */
-    .login-card {
-      background: rgba(10, 15, 25, 0.95);
-      border-radius: 20px;
-      padding: clamp(30px, 5vw, 50px) clamp(25px, 4vw, 40px);
-      width: 100%;
-      max-width: 450px;
-      border: 1px solid rgba(0, 255, 204, 0.3);
-      box-shadow: 
-        0 0 50px rgba(0, 255, 204, 0.3),
-        inset 0 0 20px rgba(0, 255, 204, 0.1);
-      position: relative;
-      overflow: hidden;
-      margin: auto;
-    }
-
-    /* Bordure animée */
-    .login-card::before {
-      content: '';
+    /* Étoiles de fond */
+    .star {
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, 
-        #00ffcc, 
-        #00ffaa, 
-        #0088ff, 
-        #00ffcc);
-      border-radius: 22px;
-      z-index: -1;
-      animation: borderGlow 4s linear infinite;
-      background-size: 400% 400%;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+      animation: twinkle 3s ease-in-out infinite;
     }
 
-    @keyframes borderGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
     }
 
-    /* Logo et titre */
-    .logo {
+    /* Conteneur de la fusée */
+    .rocket-container {
+      position: relative;
+      width: 90vw;
+      height: 90vw;
+      max-width: 500px;
+      max-height: 500px;
+      min-width: 280px;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(150px) scale(0.5);
+      animation: rocket-launch 3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes rocket-launch {
+      0% {
+        opacity: 0;
+        transform: translateY(150px) scale(0.5);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.05);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .rocket-container svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 30px rgba(0, 255, 204, 0.4));
+    }
+
+    /* Animations SVG */
+    .rocket-body {
+      animation: float 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .flame {
+      opacity: 0;
+      animation: flame-appear 0.5s ease-out 1s forwards, flame-flicker 0.3s ease-in-out 1.5s infinite;
+      transform-origin: center top;
+    }
+
+    @keyframes flame-appear {
+      to { opacity: 1; }
+    }
+
+    @keyframes flame-flicker {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(1.2); opacity: 0.8; }
+    }
+
+    .window-shine {
+      opacity: 0;
+      animation: window-glow 2s ease-in-out 1.5s infinite;
+    }
+
+    @keyframes window-glow {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+
+    .fin {
+      opacity: 0;
+      animation: fin-appear 0.8s ease-out forwards;
+    }
+
+    .fin:nth-child(1) { animation-delay: 0.3s; }
+    .fin:nth-child(2) { animation-delay: 0.5s; }
+
+    @keyframes fin-appear {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Cercle d'énergie autour de la fusée */
+    .energy-ring {
+      stroke-dasharray: 1570;
+      stroke-dashoffset: 1570;
+      animation: draw-ring 2s ease-out 0.5s forwards;
+    }
+
+    @keyframes draw-ring {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* Titre AVIATRIX */
+    .main-title {
+      position: absolute;
+      bottom: 25%;
       text-align: center;
-      margin-bottom: clamp(25px, 4vw, 40px);
+      opacity: 0;
+      animation: title-appear 1.5s ease-out 2s forwards;
     }
 
-    .logo h1 {
-      font-size: clamp(2.2rem, 5vw, 3.2rem);
+    @keyframes title-appear {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .main-title h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
       font-weight: 900;
-      background: linear-gradient(90deg, #ff0000, #ff4d4d, #ff0000);
+      background: linear-gradient(90deg, #ff0000, #ff4d4d, #00ffcc, #ff0000);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-      line-height: 1.2;
-    }
-
-    .logo p {
-      color: #aaa;
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
-      margin-top: 15px;
-      line-height: 1.5;
-      padding: 0 10px;
-    }
-
-    /* Formulaire */
-    .form-group {
-      margin-bottom: clamp(20px, 3vw, 30px);
-      position: relative;
-    }
-
-    .input-label {
-      display: block;
-      color: #00ffcc;
-      margin-bottom: 10px;
-      font-weight: 500;
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      letter-spacing: 1px;
-    }
-
-    .input-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .password-input {
-      width: 100%;
-      padding: clamp(15px, 3vw, 18px) 20px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid rgba(0, 255, 204, 0.5);
-      border-radius: 10px;
-      color: white;
-      font-size: clamp(1rem, 2vw, 1.1rem);
-      font-family: 'Orbitron', sans-serif;
-      transition: all 0.3s ease;
-      padding-right: 60px;
-    }
-
-    .password-input:focus {
-      outline: none;
-      border-color: #00ffcc;
-      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-    }
-
-    .eye-toggle {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #00ffcc;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      cursor: pointer;
-      transition: color 0.3s;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .eye-toggle:hover {
-      color: #00ffaa;
-    }
-
-    /* Bouton */
-    .submit-btn {
-      width: 100%;
-      padding: clamp(15px, 3vw, 18px);
-      background: linear-gradient(90deg, #00ffcc, #00ffaa);
-      border: none;
-      border-radius: 10px;
-      color: #000;
-      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-      font-weight: 700;
-      font-family: 'Orbitron', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-top: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s;
-    }
-
-    .submit-btn:hover::before {
-      left: 100%;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 255, 204, 0.4);
-    }
-
-    /* Message d'erreur */
-    .error-message {
-      color: #ff4d4d;
-      text-align: center;
-      margin-top: 15px;
-      font-size: clamp(0.9rem, 2vw, 1rem);
-      min-height: 24px;
-      text-shadow: 0 0 10px rgba(255, 77, 77, 0.5);
-    }
-
-    /* Footer - repositionné en bas */
-    .footer {
-      margin-top: auto;
-      text-align: center;
-      color: #888;
-      font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-      width: 100%;
-      max-width: 450px;
-      padding: clamp(15px, 3vw, 25px) 0;
-    }
-
-    .footer p {
+      background-size: 200% 100%;
+      letter-spacing: 8px;
       margin-bottom: 15px;
-      line-height: 1.4;
+      animation: gradient-shift 4s ease infinite;
     }
 
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: clamp(15px, 3vw, 25px);
-      margin-top: 15px;
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
-    .social-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: clamp(40px, 8vw, 50px);
-      height: clamp(40px, 8vw, 50px);
-      border-radius: 50%;
-      background: rgba(0, 255, 204, 0.1);
-      color: #00ffcc;
-      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 255, 204, 0.3);
-      text-decoration: none;
+    /* Message */
+    .welcome-message {
+      position: absolute;
+      bottom: 18%;
+      text-align: center;
+      color: white;
+      opacity: 0;
+      animation: message-appear 1s ease-out 2.8s forwards;
+      width: 90%;
+      max-width: 600px;
     }
 
-    .social-link:hover {
+    @keyframes message-appear {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcome-message p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      color: rgba(0, 255, 204, 0.9);
+      font-weight: 400;
+      letter-spacing: 2px;
+      line-height: 1.5;
+    }
+
+    /* Barre de chargement */
+    .loading-bar-container {
+      position: absolute;
+      bottom: 10%;
+      width: 80%;
+      max-width: 350px;
+      height: 4px;
       background: rgba(0, 255, 204, 0.2);
-      color: #00ffaa;
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      opacity: 0;
+      animation: loading-appear 0.5s ease-out 3.5s forwards;
+      border: 1px solid rgba(0, 255, 204, 0.3);
     }
 
-    /* Protection contre l'inspection */
-    .no-select {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+    @keyframes loading-appear {
+      to { opacity: 1; }
     }
 
-    /* Pour les très petits écrans */
-    @media (max-height: 600px) {
-      .login-card {
-        padding: 20px;
-        max-height: 90vh;
-        overflow-y: auto;
+    .loading-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00ffcc, #ff0000, #00ffaa);
+      border-radius: 10px;
+      animation: loading-progress 2.5s ease-out 3.5s forwards;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+      background-size: 200% 100%;
+      animation: loading-progress 2.5s ease-out 3.5s forwards, 
+                 bar-gradient 2s ease infinite;
+    }
+
+    @keyframes loading-progress {
+      to { width: 100%; }
+    }
+
+    @keyframes bar-gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Particules de fumée */
+    .smoke-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, rgba(255, 77, 77, 0.6), transparent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: smoke-rise 2s ease-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes smoke-rise {
+      0% { 
+        transform: translateY(0) scale(0.5); 
+        opacity: 0; 
       }
-      
-      .logo {
-        margin-bottom: 15px;
+      50% { 
+        opacity: 0.6; 
       }
-      
-      .logo h1 {
-        font-size: 1.8rem;
-      }
-      
-      .logo p {
-        font-size: 0.8rem;
-        margin-top: 5px;
-      }
-      
-      .form-group {
-        margin-bottom: 15px;
-      }
-      
-      .footer {
-        padding: 10px 0;
+      100% { 
+        transform: translateY(-100px) scale(1.5); 
+        opacity: 0; 
       }
     }
 
+    /* Fade out final */
+    .welcome-container.fade-out {
+      animation: fade-out-all 1s ease-out forwards;
+    }
+
+    @keyframes fade-out-all {
+      to {
+        opacity: 0;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Responsive */
     @media (max-width: 480px) {
-      .login-card {
-        padding: 25px 20px;
-        max-width: 95%;
+      .rocket-container {
+        max-width: 350px;
+        max-height: 350px;
       }
-      
-      .password-input {
-        padding: 14px 15px;
-        padding-right: 50px;
+
+      .main-title h1 {
+        letter-spacing: 4px;
       }
-      
-      .eye-toggle {
-        right: 12px;
-      }
-      
-      .social-links {
-        gap: 15px;
+
+      .welcome-message p {
+        letter-spacing: 1px;
       }
     }
 
-    @media (max-width: 350px) {
-      .logo h1 {
-        font-size: 1.6rem;
-        letter-spacing: 2px;
+    @media (orientation: landscape) and (max-height: 600px) {
+      .rocket-container {
+        max-width: 300px;
+        max-height: 300px;
       }
-      
-      .password-input, .submit-btn {
-        font-size: 0.9rem;
+
+      .main-title {
+        bottom: 20%;
+      }
+
+      .welcome-message {
+        bottom: 12%;
+      }
+
+      .loading-bar-container {
+        bottom: 5%;
+      }
+    }
+
+    @supports (padding: max(0px)) {
+      .welcome-container {
+        padding: max(20px, env(safe-area-inset-top)) 
+                 max(20px, env(safe-area-inset-right)) 
+                 max(20px, env(safe-area-inset-bottom)) 
+                 max(20px, env(safe-area-inset-left));
       }
     }
   </style>
 </head>
-<body class="no-select">
+<body>
+  <div class="welcome-container" id="welcomeContainer">
+    <!-- Étoiles -->
+    <div id="stars"></div>
 
-  <!-- Animations de fond originales -->
-  <div class="lightning"></div>
+    <!-- Particules de fumée -->
+    <div id="smoke"></div>
 
-  <!-- Contenu principal -->
-  <div class="main-container">
-    <div class="login-card">
-      <div class="logo">
-        <h1>AVIATRIX</h1>
-			<br>Veuillez contacter Hendrinirina pour obtenir le mot de passe.</p>
-      </div>
-      
-      <div class="form-group">
-        <label class="input-label">MOT DE PASSE</label>
-        <div class="input-wrapper">
-          <input type="password" id="passwordInput" class="password-input" placeholder="••••••••" onkeydown="handleEnter(event)">
-          <button class="eye-toggle" id="eyeToggle" onclick="togglePassword()">
-            <i class="far fa-eye"></i>
-          </button>
-        </div>
-      </div>
-      
-      <button class="submit-btn" onclick="checkPassword()">
-        <span>ACCÉDER</span>
-      </button>
-      
-      <div class="error-message" id="loginError"></div>
+    <!-- Fusée animée -->
+    <div class="rocket-container">
+      <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff0000"/>
+            <stop offset="100%" style="stop-color:#cc0000"/>
+          </linearGradient>
+          
+          <linearGradient id="windowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#00ffcc"/>
+            <stop offset="100%" style="stop-color:#00aaaa"/>
+          </linearGradient>
+          
+          <radialGradient id="flameGradient">
+            <stop offset="0%" style="stop-color:#ffff00"/>
+            <stop offset="40%" style="stop-color:#ff6600"/>
+            <stop offset="100%" style="stop-color:#ff0000"/>
+          </radialGradient>
+
+          <radialGradient id="energyGradient">
+            <stop offset="0%" style="stop-color:#00ffcc" stop-opacity="0"/>
+            <stop offset="50%" style="stop-color:#00ffcc" stop-opacity="0.3"/>
+            <stop offset="100%" style="stop-color:#00ffcc" stop-opacity="0"/>
+          </radialGradient>
+
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Cercle d'énergie -->
+        <circle class="energy-ring" cx="200" cy="300" r="250" fill="none" 
+                stroke="url(#energyGradient)" stroke-width="3" opacity="0.6"/>
+
+        <g class="rocket-body">
+          <!-- Flammes -->
+          <g class="flame" filter="url(#glow)">
+            <ellipse cx="200" cy="420" rx="20" ry="35" fill="url(#flameGradient)"/>
+            <ellipse cx="165" cy="445" rx="12" ry="25" fill="url(#flameGradient)"/>
+            <ellipse cx="235" cy="445" rx="12" ry="25" fill="url(#flameGradient)"/>
+          </g>
+          
+          <!-- Aileron gauche -->
+          <path class="fin" d="M 160 380 L 135 445 L 170 420 Z" 
+                fill="#2c3e50" stroke="#00ffcc" stroke-width="2"/>
+          
+          <!-- Aileron droit -->
+          <path class="fin" d="M 240 380 L 265 445 L 230 420 Z" 
+                fill="#2c3e50" stroke="#00ffcc" stroke-width="2"/>
+          
+          <!-- Corps principal -->
+          <rect x="165" y="300" width="70" height="130" 
+                fill="url(#rocketGradient)" rx="8" 
+                stroke="#00ffcc" stroke-width="2"/>
+          
+          <!-- Ogive -->
+          <path d="M 200 200 L 165 300 L 235 300 Z" 
+                fill="#95a5a6" stroke="#00ffcc" stroke-width="2"/>
+          
+          <!-- Hublot -->
+          <circle cx="200" cy="280" r="18" 
+                  fill="url(#windowGradient)" 
+                  stroke="#00ffcc" stroke-width="2"/>
+          
+          <circle class="window-shine" cx="200" cy="280" r="18" 
+                  fill="rgba(255, 255, 255, 0.5)"/>
+          
+          <!-- Détails corps -->
+          <rect x="170" y="340" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
+          <rect x="170" y="360" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
+          <rect x="170" y="380" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
+          
+          <!-- Réacteurs -->
+          <rect x="172" y="410" width="18" height="20" fill="#2c3e50" rx="3"/>
+          <rect x="210" y="410" width="18" height="20" fill="#2c3e50" rx="3"/>
+        </g>
+      </svg>
     </div>
-    
-    <div class="footer">
-      <p>Novolavolain'i Hendrinirina RAKOTONARIVO<br>© 2026 AVIATRIX. Version 2.3.0</p>
-      
-      <div class="social-links">
-        <a href="https://www.facebook.com/profile.php?id=100068494160483" target="_blank" class="social-link" aria-label="Facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://www.instagram.com/hendrinirina/profilecard/?igsh=dG56cW96ODM4YWM1" target="_blank" class="social-link" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://wa.me/261387753496" target="_blank" class="social-link" aria-label="WhatsApp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-      </div>
+
+    <!-- Titre -->
+    <div class="main-title">
+      <h1>AVIATRIX</h1>
+    </div>
+
+    <!-- Message de bienvenue -->
+    <div class="welcome-message">
+      <p>PRÊT À PRÉDIRE</p>
+    </div>
+
+    <!-- Barre de chargement -->
+    <div class="loading-bar-container">
+      <div class="loading-bar"></div>
     </div>
   </div>
 
   <script>
-    // Empêcher l'accès au code source avec Ctrl+U
-    document.addEventListener('keydown', function(e) {
-      // Bloquer Ctrl+U (view source)
-      if (e.ctrlKey && e.keyCode === 85) {
-        e.preventDefault();
-        showProtectionMessage();
-        return false;
-      }
-      
-      // Bloquer Ctrl+Shift+I (dev tools)
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-        e.preventDefault();
-        showProtectionMessage();
-        return false;
-      }
-      
-      // Bloquer F12 (dev tools)
-      if (e.keyCode === 123) {
-        e.preventDefault();
-        showProtectionMessage();
-        return false;
-      }
-      
-      // Bloquer Ctrl+Shift+J (dev tools console)
-      if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-        e.preventDefault();
-        showProtectionMessage();
-        return false;
-      }
-      
-      // Bloquer le clic droit (menu contextuel)
-      if (e.keyCode === 93) {
-        e.preventDefault();
-        return false;
-      }
-    });
+    // Créer les étoiles
+    const starsContainer = document.getElementById('stars');
+    const starCount = window.innerWidth < 768 ? 30 : 60;
+    
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.animationDuration = (2 + Math.random() * 2) + 's';
+      starsContainer.appendChild(star);
+    }
 
-    // Empêcher le clic droit
-    document.addEventListener('contextmenu', function(e) {
-      e.preventDefault();
-      showProtectionMessage();
-      return false;
-    });
+    // Créer les particules de fumée
+    const smokeContainer = document.getElementById('smoke');
+    const smokeCount = window.innerWidth < 768 ? 8 : 15;
+    
+    function createSmoke() {
+      const smoke = document.createElement('div');
+      smoke.className = 'smoke-particle';
+      smoke.style.left = 'calc(50% - 4px)';
+      smoke.style.bottom = '40%';
+      smoke.style.animationDelay = Math.random() * 2 + 's';
+      smoke.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+      smokeContainer.appendChild(smoke);
+    }
 
-    // Message de protection
-    function showProtectionMessage() {
-      const errorElement = document.getElementById('loginError');
-      const originalText = errorElement.textContent;
-      
-      errorElement.style.color = '#ff9900';
-      errorElement.textContent = 'L\'inspection du code est désactivée pour des raisons de sécurité.';
+    setTimeout(() => {
+      for (let i = 0; i < smokeCount; i++) {
+        createSmoke();
+      }
+    }, 1000);
+
+    // Redirection automatique
+    setTimeout(() => {
+      const container = document.getElementById('welcomeContainer');
+      container.classList.add('fade-out');
       
       setTimeout(() => {
-        errorElement.style.color = '';
-        errorElement.textContent = originalText;
-      }, 3000);
-    }
+        // Remplacer 'index.html' par votre page de destination
+        window.location.href = 'Aviatrix.html';
+      }, 1000);
+    }, 7200);
 
-    // Empêcher la sélection de texte
-    document.addEventListener('selectstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
-
-    // Empêcher le glisser-déposer
-    document.addEventListener('dragstart', function(e) {
-      e.preventDefault();
-      return false;
-    });
-
-    // Créer les LED animées
-    function createLEDs() {
-      const container = document.body;
-      for (let i = 0; i < 40; i++) {
-        let led = document.createElement('div');
-        led.className = 'led';
-        led.style.left = Math.random() * 100 + 'vw';
-        led.style.animationDuration = (5 + Math.random() * 10) + 's';
-        led.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(led);
-      }
-    }
-
-    // Fonction pour hasher le mot de passe avec SHA-256
-    async function hashPassword(password) {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(password);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    // Hash SHA-256 de "mdp" - À CHANGER POUR "..."
-    const CORRECT_HASH = "5ee054c4f1230f103bc0d220777afeb7546e51633669d56d4b2a08389f94c7ba";
-
-    async function checkPassword() {
-      const input = document.getElementById("passwordInput").value;
-      const errorElement = document.getElementById("loginError");
-      
-      if (!input) {
-        errorElement.textContent = "Veuillez entrer un mot de passe.";
-        return;
-      }
-      
-      // Effet de chargement
-      const submitBtn = document.querySelector('.submit-btn');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-      submitBtn.disabled = true;
-      
-      try {
-        const hashedInput = await hashPassword(input);
-        
-        // Simulation d'un délai pour l'effet
-        await new Promise(resolve => setTimeout(resolve, 600));
-        
-        if (hashedInput === CORRECT_HASH) {
-          localStorage.setItem("isLoggedIn", "true");
-          errorElement.textContent = "";
-          errorElement.style.color = "#00ffcc";
-          errorElement.textContent = "Connexion réussie ! Redirection...";
-          
-          // Effet de succès
-          submitBtn.innerHTML = '<i class="fas fa-check"></i>';
-          submitBtn.style.background = "linear-gradient(90deg, #00cc88, #00aa66)";
-          
-          setTimeout(() => {
-            window.location.href = "condition.html";
-          }, 800);
-        } else {
-          errorElement.textContent = "Mot de passe incorrect.";
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-          
-          // Effet d'erreur sur le champ
-          const inputField = document.getElementById("passwordInput");
-          inputField.style.borderColor = "#ff4d4d";
-          inputField.style.boxShadow = "0 0 15px rgba(255, 77, 77, 0.3)";
-          
-          setTimeout(() => {
-            inputField.style.borderColor = "rgba(0, 255, 204, 0.5)";
-            inputField.style.boxShadow = "none";
-          }, 1000);
-        }
-      } catch (error) {
-        errorElement.textContent = "Une erreur est survenue.";
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-      }
-    }
-
-    function togglePassword() {
-      const input = document.getElementById("passwordInput");
-      const eyeIcon = document.querySelector('#eyeToggle i');
-      
-      if (input.type === "password") {
-        input.type = "text";
-        eyeIcon.classList.remove('fa-eye');
-        eyeIcon.classList.add('fa-eye-slash');
+    // Gestion de l'orientation
+    function handleOrientation() {
+      if (window.innerHeight > window.innerWidth) {
+        document.body.style.height = '100vh';
       } else {
-        input.type = "password";
-        eyeIcon.classList.remove('fa-eye-slash');
-        eyeIcon.classList.add('fa-eye');
+        document.body.style.height = '100%';
       }
     }
 
-    function handleEnter(event) {
-      if (event.key === "Enter") {
-        checkPassword();
-      }
-    }
+    window.addEventListener('orientationchange', handleOrientation);
+    window.addEventListener('resize', handleOrientation);
+    handleOrientation();
 
-    // Désactiver les raccourcis de zoom
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
-        e.preventDefault();
-      }
-    });
-
-    // Empêcher le zoom tactile
-    document.addEventListener('wheel', function(e) {
-      if (e.ctrlKey) {
-        e.preventDefault();
-      }
-    }, { passive: false });
-
-    // Initialiser les animations au chargement
-    document.addEventListener('DOMContentLoaded', function() {
-      createLEDs();
-      
-      // Adapter la hauteur sur mobile
-      function adjustHeight() {
-        document.body.style.height = window.innerHeight + 'px';
-      }
-      
-      adjustHeight();
-      window.addEventListener('resize', adjustHeight);
-      
-      // Focus sur le champ de mot de passe
-      setTimeout(() => {
-        document.getElementById('passwordInput').focus();
-      }, 500);
-    });
+    // Optimisation iOS
+    document.addEventListener('touchstart', function(){}, {passive: true});
   </script>
 </body>
 </html>
