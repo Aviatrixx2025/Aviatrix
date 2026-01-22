@@ -46,7 +46,7 @@
       overflow: hidden;
     }
 
-    /* Étoiles de fond */
+    /* Étoiles de fond - plus d'étoiles sur PC */
     .star {
       position: absolute;
       width: 2px;
@@ -63,13 +63,13 @@
       50% { opacity: 1; transform: scale(1); }
     }
 
-    /* Conteneur de la fusée */
+    /* Conteneur de la fusée - Ajustements PC */
     .rocket-container {
       position: relative;
       width: 90vw;
       height: 90vw;
-      max-width: 500px;
-      max-height: 500px;
+      max-width: 400px; /* Réduit de 500px à 400px pour PC */
+      max-height: 400px; /* Réduit de 500px à 400px pour PC */
       min-width: 280px;
       min-height: 280px;
       display: flex;
@@ -161,13 +161,15 @@
       to { stroke-dashoffset: 0; }
     }
 
-    /* Titre AVIATRIX */
+    /* Titre AVIATRIX - Ajustements PC */
     .main-title {
       position: absolute;
       bottom: 25%;
       text-align: center;
       opacity: 0;
       animation: title-appear 1.5s ease-out 2s forwards;
+      width: 90%;
+      max-width: 800px;
     }
 
     @keyframes title-appear {
@@ -182,7 +184,7 @@
     }
 
     .main-title h1 {
-      font-size: clamp(3rem, 8vw, 5rem);
+      font-size: clamp(3rem, 8vw, 4.5rem); /* Réduit de 5rem à 4.5rem */
       font-weight: 900;
       background: linear-gradient(90deg, #ff0000, #ff4d4d, #00ffcc, #ff0000);
       -webkit-background-clip: text;
@@ -199,7 +201,7 @@
       50% { background-position: 100% 50%; }
     }
 
-    /* Message */
+    /* Message - Ajustements PC */
     .welcome-message {
       position: absolute;
       bottom: 18%;
@@ -223,20 +225,20 @@
     }
 
     .welcome-message p {
-      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-size: clamp(1rem, 2.5vw, 1.4rem); /* Ajusté pour PC */
       color: rgba(0, 255, 204, 0.9);
       font-weight: 400;
       letter-spacing: 2px;
       line-height: 1.5;
     }
 
-    /* Barre de chargement */
+    /* Barre de chargement - Ajustements PC */
     .loading-bar-container {
       position: absolute;
       bottom: 10%;
       width: 80%;
-      max-width: 350px;
-      height: 4px;
+      max-width: 450px; /* Augmenté pour PC */
+      height: 5px; /* Légèrement plus épais sur PC */
       background: rgba(0, 255, 204, 0.2);
       border-radius: 10px;
       overflow: hidden;
@@ -254,7 +256,6 @@
       height: 100%;
       background: linear-gradient(90deg, #00ffcc, #ff0000, #00ffaa);
       border-radius: 10px;
-      animation: loading-progress 2.5s ease-out 3.5s forwards;
       box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
       background-size: 200% 100%;
       animation: loading-progress 2.5s ease-out 3.5s forwards, 
@@ -308,7 +309,98 @@
       }
     }
 
-    /* Responsive */
+    /* ===== NOUVEAUX MEDIA QUERIES POUR PC ===== */
+    
+    /* Tablettes et petits PC (768px à 1024px) */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .rocket-container {
+        max-width: 350px;
+        max-height: 350px;
+      }
+      
+      .main-title h1 {
+        font-size: 4rem;
+        letter-spacing: 10px;
+      }
+      
+      .welcome-message p {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+      }
+      
+      .loading-bar-container {
+        max-width: 400px;
+        height: 6px;
+      }
+    }
+    
+    /* PC moyens (1025px à 1440px) */
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      .rocket-container {
+        max-width: 380px;
+        max-height: 380px;
+      }
+      
+      .main-title {
+        bottom: 28%;
+      }
+      
+      .main-title h1 {
+        font-size: 4.2rem;
+        letter-spacing: 12px;
+      }
+      
+      .welcome-message {
+        bottom: 20%;
+      }
+      
+      .welcome-message p {
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+      }
+      
+      .loading-bar-container {
+        bottom: 12%;
+        max-width: 500px;
+        height: 6px;
+      }
+    }
+    
+    /* Grands écrans PC (1441px et plus) */
+    @media (min-width: 1441px) {
+      .rocket-container {
+        max-width: 420px;
+        max-height: 420px;
+      }
+      
+      .main-title {
+        bottom: 30%;
+      }
+      
+      .main-title h1 {
+        font-size: 4.5rem;
+        letter-spacing: 15px;
+      }
+      
+      .welcome-message {
+        bottom: 22%;
+      }
+      
+      .welcome-message p {
+        font-size: 1.5rem;
+        letter-spacing: 4px;
+      }
+      
+      .loading-bar-container {
+        bottom: 15%;
+        max-width: 550px;
+        height: 7px;
+      }
+    }
+
+    /* ===== RESPONSIVE EXISTANT ===== */
+    
+    /* Smartphones */
     @media (max-width: 480px) {
       .rocket-container {
         max-width: 350px;
@@ -324,25 +416,56 @@
       }
     }
 
+    /* Mode paysage sur mobile */
     @media (orientation: landscape) and (max-height: 600px) {
+      .rocket-container {
+        max-width: 250px;
+        max-height: 250px;
+      }
+
+      .main-title {
+        bottom: 25%;
+      }
+      
+      .main-title h1 {
+        font-size: 2.5rem;
+      }
+
+      .welcome-message {
+        bottom: 18%;
+      }
+      
+      .welcome-message p {
+        font-size: 1rem;
+      }
+
+      .loading-bar-container {
+        bottom: 8%;
+        max-width: 300px;
+      }
+    }
+    
+    /* Hauteur spécifique pour éviter le débordement */
+    @media (max-height: 700px) {
       .rocket-container {
         max-width: 300px;
         max-height: 300px;
       }
-
+      
       .main-title {
-        bottom: 20%;
+        bottom: 22%;
       }
-
+      
       .welcome-message {
-        bottom: 12%;
+        bottom: 15%;
       }
-
+      
       .loading-bar-container {
-        bottom: 5%;
+        bottom: 8%;
       }
     }
 
+    /* Support safe-area pour iOS */
     @supports (padding: max(0px)) {
       .welcome-container {
         padding: max(20px, env(safe-area-inset-top)) 
@@ -364,6 +487,7 @@
     <!-- Fusée animée -->
     <div class="rocket-container">
       <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+        <!-- ... code SVG existant inchangé ... -->
         <defs>
           <linearGradient id="rocketGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" style="stop-color:#ff0000"/>
@@ -436,7 +560,7 @@
           <!-- Détails corps -->
           <rect x="170" y="340" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
           <rect x="170" y="360" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
-          <rect x="170" y="380" width="60" height="3" fill="#00ffcc" opacity="0.7"/>
+          <rect x="170" y="380" width="60" height="3" fill="#00ccaa" opacity="0.7"/>
           
           <!-- Réacteurs -->
           <rect x="172" y="410" width="18" height="20" fill="#2c3e50" rx="3"/>
@@ -462,9 +586,19 @@
   </div>
 
   <script>
-    // Créer les étoiles
+    // Créer les étoiles - plus d'étoiles sur PC
     const starsContainer = document.getElementById('stars');
-    const starCount = window.innerWidth < 768 ? 30 : 60;
+    let starCount;
+    
+    if (window.innerWidth >= 1441) {
+      starCount = 100; // Grands écrans
+    } else if (window.innerWidth >= 1025) {
+      starCount = 80; // PC moyens
+    } else if (window.innerWidth >= 768) {
+      starCount = 60; // Tablettes
+    } else {
+      starCount = 30; // Mobiles
+    }
     
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -478,7 +612,13 @@
 
     // Créer les particules de fumée
     const smokeContainer = document.getElementById('smoke');
-    const smokeCount = window.innerWidth < 768 ? 8 : 15;
+    let smokeCount;
+    
+    if (window.innerWidth >= 768) {
+      smokeCount = 20; // Plus de fumée sur PC
+    } else {
+      smokeCount = 8; // Moins sur mobile
+    }
     
     function createSmoke() {
       const smoke = document.createElement('div');
@@ -502,26 +642,41 @@
       container.classList.add('fade-out');
       
       setTimeout(() => {
-        // Remplacer 'index.html' par votre page de destination
         window.location.href = 'Aviatrix.html';
       }, 1000);
     }, 7200);
 
-    // Gestion de l'orientation
-    function handleOrientation() {
+    // Gestion de l'orientation et du redimensionnement
+    function handleResize() {
+      // Ajustement pour différentes tailles d'écran
       if (window.innerHeight > window.innerWidth) {
         document.body.style.height = '100vh';
       } else {
         document.body.style.height = '100%';
       }
+      
+      // Ajustement pour très grands écrans
+      if (window.innerWidth > 1920) {
+        document.documentElement.style.fontSize = '18px';
+      } else if (window.innerWidth > 1440) {
+        document.documentElement.style.fontSize = '16px';
+      } else {
+        document.documentElement.style.fontSize = '14px';
+      }
     }
 
-    window.addEventListener('orientationchange', handleOrientation);
-    window.addEventListener('resize', handleOrientation);
-    handleOrientation();
+    window.addEventListener('orientationchange', handleResize);
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
-    // Optimisation iOS
+    // Optimisation pour tous les appareils
     document.addEventListener('touchstart', function(){}, {passive: true});
+    
+    // Détection PC vs Mobile pour ajustements
+    const isPC = window.innerWidth >= 768;
+    if (isPC) {
+      document.body.classList.add('pc-device');
+    }
   </script>
 </body>
 </html>
