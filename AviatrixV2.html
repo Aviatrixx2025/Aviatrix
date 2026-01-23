@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ketrik'i AVIATRIX</title>
-	<link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -267,19 +267,19 @@
       background: rgb(65 239 151 / 30%);
       border-radius: 12px;
       border-left: 4px solid #ccff00;
-	  border-right: 4px solid #ccff00;
+      border-right: 4px solid #ccff00;
       font-size: 0.95rem;
       color: #ffccd5;
       font-weight: 500;
     }
-	
-	.disclaimer em {
-	  color: #00ffa3d4;
-	}
-	
-	.disclaimer strong {
-	  color: red;
-	}
+    
+    .disclaimer em {
+      color: #00ffa3d4;
+    }
+    
+    .disclaimer strong {
+      color: red;
+    }
 
     /* Contenu principal */
     .main-content {
@@ -290,12 +290,12 @@
 
     /* Calculatrice avec dégradé violet/orange */
     .calculator-card {
-      background: linear-gradient(135deg, rgb(45 27 105 / 32%) 0%, rgba(26, 26, 46, 0.9) 100%)
+      background: linear-gradient(135deg, rgb(45 27 105 / 32%) 0%, rgba(26, 26, 46, 0.9) 100%);
       border-radius: 20px;
       padding: 30px;
       border: 2px solid #dddcda;
       box-shadow: 0 10px 40px rgba(155, 0, 255, 0.3);
-	  border-radius: 30px;
+      border-radius: 30px;
     }
 
     .input-group {
@@ -333,7 +333,7 @@
 
     .time-inputs {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 15px;
       margin-top: 15px;
     }
@@ -438,7 +438,7 @@
       padding: 15px;
       border-radius: 12px;
       border-left: 4px solid #1fa55b;
-	  border-right: 4px solid #1fa55b;
+      border-right: 4px solid #1fa55b;
     }
 
     .result-label {
@@ -686,14 +686,14 @@
       </div>
       <ul class="instructions-list">
         <li>1) Ampidiro eo amin'ilay "case" voalohany ny <strong>"multiplicateur (côte)"</strong> kely indrindra ao anatin'ny <strong>"dix (10) derniers tours"</strong>. (ohatra : 1.00 à 1.30)</li>
-        <li>2) Ampidiro tsy misy diso eo amin'ilay "case" faharoa ny <strong>ORA, MINITRA, SEGONDRA (HH:MM:SS)</strong> an'ilay "multiplicateur (côte)" kely indrindra itanao.</li>
+        <li>2) Ampidiro tsy misy diso eo amin'ilay "case" faharoa ny <strong>ORA, MINITRA (HH:MM)</strong> an'ilay "multiplicateur (côte)" kely indrindra itanao.</li>
         <li>3) Raha sendra tara an'ilay prédiction nomen'i AVIATRIX dia miandry <strong>"côte" kely indrindra"</strong> mivoka indray any amin'ny <em>"Historique des côtes"</em> ao amin'ny AVIATOR.</li>
-		<li>4) Midira <strong>20 na 15 secondes</strong> à l'avance rehefa manome prédiction i AVIATRIX</li>
-		<li>5) Ora filalaovana : <strong>15h atramin'ny 17h - 21h atramin'ny 23h</strong> (Tena misy dikany be ity ora filalaovana ity).</li>
+        <li>4) Midira <strong>30 na 40 secondes</strong> aorinan'ilay prédiction (ohatra hoe 16 heures 47 minutes na hoe 16:47 ilay prédiction dia 16h 47min 30sec na 16h 47min 40sec no miditra)</li>
+        <li>5) Ora filalaovana : <strong>15h atramin'ny 17h - 21h atramin'ny 23h</strong> (Tena misy dikany be ity ora filalaovana ity).</li>
       </ul>
       <div class="disclaimer">
         <strong>⚠️ IMPORTANT:</strong> Ny "prédiction" avoka eto dia tsy misy <em>"100% exacte"</em>  izay efa notsindrina mafy tany amin'ny "condition général" 
-		izay novakinao sy noekenao ka fadio ny manao "mise" vola be na ny volanao rehetra mihitsy, ataovy antonony mba misy ilalaovana tsara. <em>Tadidio fa kilalao ny AVIATOR fa tsy anton'asa na vadin'asa !</em>
+        izay novakinao sy noekenao ka fadio ny manao "mise" vola be na ny volanao rehetra mihitsy, ataovy antonony mba misy ilalaovana tsara. <em>Tadidio fa kilalao ny AVIATOR fa tsy anton'asa na vadin'asa !</em>
       </div>
     </div>
   </div>
@@ -708,11 +708,10 @@
       </div>
 
       <div class="input-group">
-        <label class="input-label">HEURE DU CRASH (HH:MM:SS)</label>
+        <label class="input-label">HEURE DU CRASH (HH:MM)</label>
         <div class="time-inputs">
           <input id="h" placeholder="HH" maxlength="2" class="time-input">
           <input id="m" placeholder="MM" maxlength="2" class="time-input">
-          <input id="s" placeholder="SS" maxlength="2" class="time-input">
         </div>
       </div>
 
@@ -735,8 +734,8 @@
     <div class="aviatrix-footer" id="aviatrix">
       A V I A T R I X
     </div>
-	<footer style="text-align: center; margin: 30px 0;">
-  <a href="Aviatrix.html" style="
+    <footer style="text-align: center; margin: 30px 0;">
+  <a href="index.html" style="
     display: inline-block;
     background: linear-gradient(135deg, #9b00ff 0%, #ff0080 50%, #ff8c00 100%);
     color: white;
@@ -833,7 +832,6 @@
       const mult = parseFloat(document.getElementById("mult").value);
       const h = document.getElementById("h").value.padStart(2, "0");
       const m = document.getElementById("m").value.padStart(2, "0");
-      const s = document.getElementById("s").value.padStart(2, "0");
       
       // Validation
       if (isNaN(mult) || mult >= 2 || mult < 1.00) {
@@ -841,21 +839,21 @@
         return;
       }
       
-      if (!h || !m || !s || isNaN(h) || isNaN(m) || isNaN(s)) {
-        alert("❌ Veuillez entrer une heure valide (HH, MM, SS)");
+      if (!h || !m || isNaN(h) || isNaN(m)) {
+        alert("❌ Veuillez entrer une heure valide (HH, MM)");
         return;
       }
 
-      // Calculs
+      // Calculs (les secondes sont automatiquement mises à 00)
       const baseTime = new Date();
       baseTime.setHours(parseInt(h));
       baseTime.setMinutes(parseInt(m));
-      baseTime.setSeconds(parseInt(s));
+      baseTime.setSeconds(0); // Secondes fixées à 0
       
       const bestTime = new Date(baseTime.getTime() + 3 * 60000); // +3 minutes
       
       const formatTime = (d) =>
-        `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}:${d.getSeconds().toString().padStart(2, '0')}`;
+        `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
       
       const prob = ((2 - mult) * 45).toFixed(1);
       const predictionX = ((2 - mult) * 2 + 1.5).toFixed(2);
@@ -908,7 +906,7 @@
             </div>
             <div class="result-item">
               <div class="result-label">Heure du crash</div>
-              <div class="result-value">${h}:${m}:${s}</div>
+              <div class="result-value">${h}:${m}</div>
             </div>
             <div class="result-item">
               <div class="result-label">Heure conseillée</div>
@@ -938,7 +936,7 @@
       document.getElementById('mult').focus();
       
       // Limiter les champs heure à 2 chiffres
-      ['h', 'm', 's'].forEach(id => {
+      ['h', 'm'].forEach(id => {
         document.getElementById(id).addEventListener('input', function(e) {
           if (this.value.length > 2) {
             this.value = this.value.slice(0, 2);
