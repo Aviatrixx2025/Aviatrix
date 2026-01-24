@@ -42,10 +42,10 @@ jobs:
     - name: Build APK
       run: |
         cd AviatrixApp
-        cordova build android --release -- --packageType=apk
+        cordova build android --release -- --packageType=apk -- --keystore="../debug.keystore" --storePassword=android --alias=androiddebugkey --password=android
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: Aviatrix-APK
-        path: AviatrixApp/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+        path: AviatrixApp/platforms/android/app/build/outputs/apk/release/app-release.apk
